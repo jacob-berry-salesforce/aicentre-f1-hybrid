@@ -1,0 +1,31 @@
+name: Deploy to Heroku
+
+# Trigger deployment when pushing to main branch
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'heroku-app/**'  # Only deploy when heroku-app changes
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Fetch all history for git subtree
+
+      - name: Setup Heroku CLI
+        uses: akhileshns/heroku-deploy@v3.12.14
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: "aicentre-f1"
+          heroku_email: "jacob.berry@salesforce.com"
+          # Deploy only the heroku-app subdirectory
+          appdir: "heroku-app"
+
+      - name: Deployment status
+        run: echo "✅ Deployed heroku-app to Heroku successfully!"

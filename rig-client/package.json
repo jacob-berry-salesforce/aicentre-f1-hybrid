@@ -13,16 +13,17 @@
     "uninstall-service": "node dist/uninstall-service.js"
   },
   "dependencies": {
-    "socket.io-client": "^4.6.1",
     "dotenv": "^16.3.1",
-    "winston": "^3.11.0",
     "node-window-manager": "^2.2.4",
-    "puppeteer": "^21.6.1"
+    "puppeteer": "^21.6.1",
+    "socket.io-client": "^4.6.1",
+    "winston": "^3.11.0"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",
-    "typescript": "^5.3.3",
+    "@types/node-windows": "^0.1.6",
+    "node-windows": "^1.0.0-beta.8",
     "tsx": "^4.7.0",
-    "node-windows": "^1.0.0-beta.8"
+    "typescript": "^5.3.3"
   }
 }
