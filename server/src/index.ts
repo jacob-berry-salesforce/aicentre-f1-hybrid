@@ -184,8 +184,8 @@ function processSessionData(packet: any, rigId: string) {
 io.on('connection', (socket) => {
   logger.info(`Client connected: ${socket.id}`);
 
-  socket.on('rig:register', (data: { rigId: string }) => {
-    const { rigId } = data;
+  socket.on('rig:register', (data: { rigId: string; ipAddress?: string }) => {
+    const { rigId, ipAddress } = data;
 
     if (rigConnections.has(rigId)) {
       const rig = rigConnections.get(rigId)!;
@@ -196,7 +196,20 @@ io.on('connection', (socket) => {
       socket.join('rigs');
       socket.data.rigId = rigId;
 
-      logger.info(`Rig registered: ${rigId}`);
+      // Map the rig's IP address to its rigId for UDP telemetry routing
+      if (ipAddress) {
+        ipToRigMap.set(ipAddress, rigId);
+        logger.info(`Rig registered: ${rigId} with IP ${ipAddress}`);
+      } else {
+        // Fallback: use socket's remote address
+        const socketIp = socket.handshake.address;
+        if (socketIp) {
+          ipToRigMap.set(socketIp, rigId);
+          logger.info(`Rig registered: ${rigId} with IP ${socketIp} (from socket)`);
+        } else {
+          logger.warn(`Rig registered: ${rigId} but no IP address available`);
+        }
+      }
 
       // Send current state to newly connected rig
       socket.emit('state:change', {

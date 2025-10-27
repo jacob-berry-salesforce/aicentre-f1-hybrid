@@ -7,13 +7,23 @@
 
 **A: NO!** Both sims send to the **SAME port (20777)** on the MacBook. This works because:
 - UDP is connectionless - server receives from multiple sources
-- F1 telemetry packets contain player index (0, 1, 2, etc.)
-- Server maps player index to rigId: `player 0 = rig-1`, `player 1 = rig-2`
-- Server can also distinguish by source IP address
+- Operating system queues packets from different sources
+- Server identifies which rig by **source IP address**
+- When rig connects via WebSocket, server maps: `IP address → rigId`
+- UDP packets include source IP in metadata: `rinfo.address`
+- Server routes: `sourceIp → rigId → telemetry data`
+
+**How it works:**
+1. Rig 1 connects via WebSocket → Server learns: `192.168.x.x = rig-1`
+2. Rig 2 connects via WebSocket → Server learns: `192.168.y.y = rig-2`
+3. UDP packet arrives from `192.168.x.x` → Routes to `rig-1`
+4. UDP packet arrives from `192.168.y.y` → Routes to `rig-2`
 
 **Configuration:**
 - Rig 1: UDP IP = `10.104.88.20`, UDP Port = `20777`
 - Rig 2: UDP IP = `10.104.88.20`, UDP Port = `20777` (SAME!)
+
+**📖 Full explanation:** See [UDP_TELEMETRY_EXPLANATION.md](UDP_TELEMETRY_EXPLANATION.md)
 
 ### ✅ Heroku App Purpose
 **Q: What's the Heroku app for? Just the registration page?**
