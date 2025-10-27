@@ -1,0 +1,8 @@
+{
+  "rigId": "rig-1",
+  "serverUrl": "http://192.168.1.100:3000",
+  "herokuAppUrl": "https://my-racing-app.herokuapp.com",
+  "f1GameWindowTitle": "F1",
+  "reconnectInterval": 5000,
+  "heartbeatInterval": 30000
+}

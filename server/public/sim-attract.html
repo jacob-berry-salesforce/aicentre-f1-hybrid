@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>F1 Racing Simulator - Attract Screen</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🏎️%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="sim-attract.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Ultra-wide Sim Attract Screen -->
+  <div class="sim-attract-container">
+    <!-- Left Section: Video Background -->
+    <section class="left-section video-section">
+      <video id="f1-video-left" muted playsinline preload="auto" class="background-video">
+        <source src="F1%2025%20Trailer%201080p.mp4" type="video/mp4">
+      </video>
+    </section>
+
+    <!-- Center Section: Content -->
+    <section class="center-section content-section">
+      <!-- Top Row: Logo + Sim ID -->
+      <div class="center-top-row">
+        <div class="branding-card">
+          <img src="SF_F1_logo.jpeg" alt="Salesforce Formula 1" class="brand-logo">
+        </div>
+        <div class="sim-identifier">
+          <div class="sim-icon">🏎️</div>
+          <h1 class="sim-title" id="simTitle">Simulator 1</h1>
+          <div class="sim-location" id="simLocation">LEFT</div>
+        </div>
+      </div>
+
+      <!-- Middle Row: 3-Column Layout -->
+      <div class="center-middle-row">
+        <!-- Left Column: QR Code + Track Map -->
+        <div class="left-column">
+          <div class="qr-card-center">
+            <h3 class="qr-title">Scan to Race</h3>
+            <div class="qr-placeholder" id="qrCode">
+              <!-- Fake QR code placeholder -->
+              <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <rect width="100" height="100" fill="white"/>
+                <rect x="5" y="5" width="20" height="20" fill="black"/>
+                <rect x="75" y="5" width="20" height="20" fill="black"/>
+                <rect x="5" y="75" width="20" height="20" fill="black"/>
+                <rect x="10" y="10" width="10" height="10" fill="white"/>
+                <rect x="80" y="10" width="10" height="10" fill="white"/>
+                <rect x="10" y="80" width="10" height="10" fill="white"/>
+                <rect x="35" y="15" width="5" height="5" fill="black"/>
+                <rect x="45" y="15" width="5" height="5" fill="black"/>
+                <rect x="55" y="15" width="5" height="5" fill="black"/>
+                <rect x="35" y="25" width="5" height="5" fill="black"/>
+                <rect x="55" y="25" width="5" height="5" fill="black"/>
+                <rect x="35" y="35" width="15" height="15" fill="black"/>
+                <rect x="55" y="35" width="15" height="15" fill="black"/>
+                <rect x="35" y="55" width="5" height="5" fill="black"/>
+                <rect x="45" y="55" width="5" height="5" fill="black"/>
+                <rect x="55" y="55" width="5" height="5" fill="black"/>
+                <rect x="35" y="65" width="15" height="15" fill="black"/>
+                <rect x="55" y="65" width="5" height="5" fill="black"/>
+                <rect x="35" y="85" width="5" height="5" fill="black"/>
+                <rect x="45" y="85" width="5" height="5" fill="black"/>
+                <rect x="55" y="85" width="15" height="5" fill="black"/>
+              </svg>
+            </div>
+            <div class="qr-instructions-center">
+              <div class="step-center">
+                <span class="step-number-center">1</span>
+                <span class="step-text-center">Scan Code</span>
+              </div>
+              <div class="step-center">
+                <span class="step-number-center">2</span>
+                <span class="step-text-center">Enter Name</span>
+              </div>
+              <div class="step-center">
+                <span class="step-number-center">3</span>
+                <span class="step-text-center">Race!</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Player Status (shows when registered) -->
+          <div class="player-status-center" id="playerStatus" style="display: none;">
+            <div class="status-icon-center">✓</div>
+            <div class="status-content-center">
+              <p class="status-label-center">Ready to Race</p>
+              <p class="status-name-center" id="playerName">Driver Name</p>
+            </div>
+          </div>
+
+          <!-- Track Map -->
+          <div class="track-map-card">
+            <h4 class="track-map-header">🗺️ Circuit Layout</h4>
+            <div class="track-map-container" id="trackMapContainer">
+              <svg id="trackMap" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                <!-- Track map will be dynamically loaded -->
+                <text x="200" y="150" text-anchor="middle" fill="#666" font-size="16">Loading track map...</text>
+              </svg>
+            </div>
+            <div class="track-stats" id="trackStats">
+              <div class="stat-item">
+                <span class="stat-label">Length:</span>
+                <span class="stat-value" id="trackLength">-</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Corners:</span>
+                <span class="stat-value" id="trackCorners">-</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">DRS Zones:</span>
+                <span class="stat-value" id="trackDRS">-</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Middle Column: Track Info + Facts -->
+        <div class="middle-column">
+          <div class="track-card">
+            <div class="track-header">
+              <span class="track-flag" id="trackFlag">🇲🇽</span>
+              <h3 class="track-name" id="trackName">Mexico City</h3>
+            </div>
+            <p class="track-subtitle" id="trackCircuit">Autódromo Hermanos Rodríguez</p>
+          </div>
+
+          <div class="track-data-grid">
+            <div class="track-facts">
+              <h4 class="facts-header">🏁 Track Facts</h4>
+              <div class="facts-list" id="factsList">
+                <div class="fact-item">
+                  <span class="fact-icon">📍</span>
+                  <span class="fact-text">Loading track information...</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="lap-records" id="lapRecordsSection" style="display: none;">
+              <h4 class="records-header">⏱️ F1 Times</h4>
+              <p class="session-type" id="sessionType">Qualifying</p>
+              <div class="records-list" id="recordsList">
+                <!-- Lap records will be inserted here -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Session Schedule + Weather -->
+        <div class="right-column">
+          <!-- Session Schedule -->
+          <div class="session-schedule-card">
+            <h4 class="schedule-header">📅 Weekend Schedule</h4>
+            <div class="schedule-list" id="scheduleList">
+              <div class="schedule-item">
+                <span class="session-name">Loading schedule...</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Weather & Conditions -->
+          <div class="conditions-card">
+            <h4 class="conditions-header">🌡️ Track Conditions</h4>
+            <div class="conditions-grid" id="conditionsGrid">
+              <div class="condition-item">
+                <span class="condition-icon">🌡️</span>
+                <div class="condition-info">
+                  <span class="condition-label">Air Temp</span>
+                  <span class="condition-value" id="airTemp">-°C</span>
+                </div>
+              </div>
+              <div class="condition-item">
+                <span class="condition-icon">🛣️</span>
+                <div class="condition-info">
+                  <span class="condition-label">Track Temp</span>
+                  <span class="condition-value" id="trackTemp">-°C</span>
+                </div>
+              </div>
+              <div class="condition-item">
+                <span class="condition-icon">💨</span>
+                <div class="condition-info">
+                  <span class="condition-label">Wind</span>
+                  <span class="condition-value" id="windSpeed">- km/h</span>
+                </div>
+              </div>
+              <div class="condition-item">
+                <span class="condition-icon">💧</span>
+                <div class="condition-info">
+                  <span class="condition-label">Humidity</span>
+                  <span class="condition-value" id="humidity">-%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Current Driver Stats -->
+          <div class="driver-stats-card">
+            <h4 class="driver-stats-header">🏆 Championship Leaders</h4>
+            <div class="driver-standings" id="driverStandings">
+              <div class="standing-item">
+                <span class="standing-position">1</span>
+                <span class="standing-driver">Loading...</span>
+                <span class="standing-points">- pts</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right Section: Video Background -->
+    <section class="right-section video-section">
+      <video id="f1-video-right" muted playsinline preload="auto" class="background-video">
+        <source src="F1%2025%20Trailer%201080p.mp4" type="video/mp4">
+      </video>
+    </section>
+  </div>
+
+  <!-- Background Music -->
+  <audio id="background-music" loop>
+    <source src="f1_theme_brian_tyler.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Music Start Overlay -->
+  <div id="music-overlay" style="position: fixed; top: 20px; right: 20px; background: rgba(0, 82, 159, 0.95); color: white; padding: 16px 24px; border-radius: 8px; font-size: 16px; font-weight: 600; z-index: 9999; box-shadow: 0 4px 12px rgba(0,0,0,0.3); cursor: pointer; display: none;">
+    🔇 Click to enable sound
+  </div>
+
+  <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+  <script src="sim-attract.js"></script>
+</body>
+</html>

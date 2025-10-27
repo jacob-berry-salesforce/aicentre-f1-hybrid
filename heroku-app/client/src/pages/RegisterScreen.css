@@ -1,0 +1,58 @@
+.register-screen {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+.register-content {
+  text-align: center;
+  padding: 40px;
+  max-width: 600px;
+}
+
+.register-content h1 {
+  margin-bottom: 10px;
+}
+
+.register-content h2 {
+  color: #ffffff;
+  margin-bottom: 50px;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: left;
+}
+
+.form-group label {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  letter-spacing: 1px;
+}
+
+.form-group input {
+  width: 100%;
+}
+
+.register-hint {
+  margin-top: 30px;
+  color: #888;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .register-content {
+    padding: 20px;
+  }
+
+  .form-group label {
+    font-size: 1.1rem;
+  }
+}

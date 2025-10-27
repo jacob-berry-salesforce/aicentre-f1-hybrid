@@ -1,0 +1,38 @@
+{
+  "name": "f1-racing-simulator",
+  "version": "1.0.0",
+  "description": "F1 Racing Simulator Management System - Multi-PC Setup",
+  "private": true,
+  "workspaces": [
+    "server",
+    "rig-client",
+    "heroku-app"
+  ],
+  "scripts": {
+    "dev:server": "npm run dev --workspace=server",
+    "dev:rig": "npm run dev --workspace=rig-client",
+    "dev:heroku": "npm run dev --workspace=heroku-app",
+    "build": "npm run build --workspaces",
+    "build:server": "npm run build --workspace=server",
+    "build:rig": "npm run build --workspace=rig-client",
+    "build:heroku": "npm run build --workspace=heroku-app",
+    "deploy:heroku": "npm run deploy --workspace=heroku-app",
+    "install:all": "npm install",
+    "clean": "npm run clean --workspaces --if-present && rm -rf node_modules",
+    "start:server": "npm run start --workspace=server",
+    "start:rig": "npm run start --workspace=rig-client"
+  },
+  "keywords": [
+    "f1",
+    "racing",
+    "simulator",
+    "telemetry",
+    "websocket"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}

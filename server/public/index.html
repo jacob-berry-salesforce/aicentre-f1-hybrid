@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>F1 Racing Simulator - Dashboard</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🏎️%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Main Dashboard Layout -->
+  <div class="dashboard-container">
+    <!-- Left Sidebar -->
+    <aside class="left-sidebar">
+      <!-- Branding Header -->
+      <div class="branding-header">
+        <img src="SF_F1_logo.jpeg" alt="Salesforce Formula 1" class="branding-image">
+      </div>
+
+      <!-- Simulator Cards -->
+      <div class="simulator-cards">
+        <!-- Sim 1 -->
+        <div class="sim-card" id="rig1Status">
+          <div class="sim-card-header">
+            <span class="sim-name">Sim 1 (Left)</span>
+            <div class="sim-status">
+              <span class="status-dot"></span>
+              <span class="status-text">Waiting</span>
+            </div>
+          </div>
+          <div class="sim-driver">
+            <span class="driver-name" id="rig1Name">—</span>
+          </div>
+        </div>
+
+        <!-- Sim 2 -->
+        <div class="sim-card" id="rig2Status">
+          <div class="sim-card-header">
+            <span class="sim-name">Sim 2 (Right)</span>
+            <div class="sim-status">
+              <span class="status-dot"></span>
+              <span class="status-text">Waiting</span>
+            </div>
+          </div>
+          <div class="sim-driver">
+            <span class="driver-name" id="rig2Name">—</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Leaderboard -->
+      <div class="leaderboard-section">
+        <h2 class="leaderboard-title">LEADERBOARD</h2>
+        <div class="leaderboard-subtitle">
+          <span class="track-flag">🇲🇽</span>
+          <span class="track-name">Mexico City - Track of the Week</span>
+        </div>
+        <div class="leaderboard-list">
+          <div class="leaderboard-item leaderboard-first">
+            <div class="leaderboard-position">1</div>
+            <div class="leaderboard-driver">
+              <span class="leaderboard-driver-name">James</span>
+              <span class="leaderboard-team">British Airways</span>
+            </div>
+            <div class="leaderboard-time">1:17.774</div>
+          </div>
+
+          <div class="leaderboard-item">
+            <div class="leaderboard-position">2</div>
+            <div class="leaderboard-driver">
+              <span class="leaderboard-driver-name">Sarah</span>
+              <span class="leaderboard-team">Unilever</span>
+            </div>
+            <div class="leaderboard-time">1:18.012</div>
+          </div>
+
+          <div class="leaderboard-item">
+            <div class="leaderboard-position">3</div>
+            <div class="leaderboard-driver">
+              <span class="leaderboard-driver-name">Michael</span>
+              <span class="leaderboard-team">HSBC</span>
+            </div>
+            <div class="leaderboard-time">1:18.156</div>
+          </div>
+
+          <div class="leaderboard-item">
+            <div class="leaderboard-position">4</div>
+            <div class="leaderboard-driver">
+              <span class="leaderboard-driver-name">Emma</span>
+              <span class="leaderboard-team">Barclays</span>
+            </div>
+            <div class="leaderboard-time">1:18.289</div>
+          </div>
+
+          <div class="leaderboard-item">
+            <div class="leaderboard-position">5</div>
+            <div class="leaderboard-driver">
+              <span class="leaderboard-driver-name">David</span>
+              <span class="leaderboard-team">Heathrow</span>
+            </div>
+            <div class="leaderboard-time">1:18.421</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="sidebar-footer">
+        <div class="footer-status">
+          <span class="status-dot-small" id="wsIndicator"></span>
+          <span id="wsStatus">System Online</span>
+        </div>
+        <div class="footer-time" id="timestamp">-</div>
+      </div>
+    </aside>
+
+    <!-- Right Video Area -->
+    <main class="video-area">
+      <video id="f1-video" autoplay loop muted playsinline>
+        <source src="F1%2025%20Trailer%201080p.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </main>
+  </div>
+
+  <!-- Background Music -->
+  <audio id="background-music" loop>
+    <source src="f1_theme_brian_tyler.mp3" type="audio/mpeg">
+    Your browser does not support the audio tag.
+  </audio>
+
+  <!-- Music Start Overlay (hidden after first interaction) -->
+  <div id="music-overlay" style="position: fixed; top: 20px; right: 20px; background: rgba(0, 82, 159, 0.95); color: white; padding: 16px 24px; border-radius: 8px; font-size: 16px; font-weight: 600; z-index: 9999; box-shadow: 0 4px 12px rgba(0,0,0,0.3); cursor: pointer; display: none;">
+    🔇 Click to enable sound
+  </div>
+
+  <!-- Hidden sections for race mode -->
+  <div class="dashboard-content" style="display: none;">
+    <!-- Live Leaderboard -->
+    <section class="leaderboard-section">
+      <div class="leaderboard-card">
+        <div class="leaderboard-list" id="leaderboardList"></div>
+      </div>
+    </section>
+
+    <!-- Telemetry (Hidden) -->
+    <div style="display: none;">
+      <div id="rig1Telemetry">
+        <span id="rig1Position"></span>
+        <span id="rig1Lap"></span>
+        <span id="rig1LastLap"></span>
+        <span id="rig1Speed"></span>
+        <span id="rig1Gap"></span>
+      </div>
+      <div id="rig2Telemetry">
+        <span id="rig2Position"></span>
+        <span id="rig2Lap"></span>
+        <span id="rig2LastLap"></span>
+        <span id="rig2Speed"></span>
+        <span id="rig2Gap"></span>
+      </div>
+      <span id="sessionId"></span>
+      <span id="raceDuration"></span>
+      <span id="fastestLap"></span>
+    </div>
+  </div>
+
+  <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>
