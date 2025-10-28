@@ -59,3 +59,12 @@ daemon/
 # Temporary files
 tmp/
 temp/
+*.tmp
+*.zip
+*.tar.gz
+
+# Doppler
+.doppler.yaml
+
+# Git branches (deployment artifacts)
+heroku-deploy
